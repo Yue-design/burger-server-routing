@@ -33,18 +33,19 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
-    error: false,
+    error: false
   };
 
   componentDidMount() {
+    console.log(this.props);
     axios
       .get("https://react-burguer-bea61.firebaseio.com/ingredients.json")
       .then(response => {
-        this.setState({ ingredients: response.data })
+        this.setState({ ingredients: response.data });
       })
       .catch(error => {
-          this.setState({error:true});
-      })
+        this.setState({ error: true });
+      });
   }
 
   updatePurchaseState(ingredients) {
@@ -99,17 +100,21 @@ class BurgerBuilder extends Component {
 
   purchaseContinueHandler = () => {
     // alert('You continue!');
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
 
     const queryParams = [];
     for (let i in this.state.ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
     }
-    queryParams.push('price=' + this.state.totalPrice);
-    const queryString = queryParams.join('&');
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
     this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
+      pathname: "/checkout",
+      search: "?" + queryString
     });
     // const order = {
     //   ingredients: this.state.ingredients,
@@ -145,7 +150,12 @@ class BurgerBuilder extends Component {
     }
     let orderSummary = null;
     // {salad: true, meat: false, ...}
-    let burger = this.state.error ? <p>Cannot load the ingredients!</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Cannot load the ingredients!</p>
+    ) : (
+      <Spinner />
+    );
+
     if (this.state.ingredients) {
       burger = (
         <Aux>

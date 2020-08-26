@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import classes from './Spinner.css';
 
-const spinner = () => {
-  <div className={classes.Loader}>Loading</div>
+class spinner extends Component {
+  render () {
+    return (
+      <div className={classes.Loader}>Loading</div>
+    )
+  }
 }
+
+// const spinner = () => {
+//    // eslint-disable-next-line 
+//   <div className={classes.Loader}>Loading</div>
+// }
 
 export default spinner;
